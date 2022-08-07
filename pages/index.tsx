@@ -5,9 +5,12 @@ import { useQuery } from "../hooks/trpc";
 
 const Home: NextPage = () => {
   const { data: session, status } = useSession();
-  const data = useQuery([
-    ""
-  ])
+  const { data: locationData } = useQuery([
+    "location.get-nearby",
+    { address: "" }
+  ]);
+  
+  console.log(locationData)
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">

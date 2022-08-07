@@ -1,10 +1,5 @@
 import { z } from "zod";
 import { createRouter } from "../create-router";
-const NodeGeocoder = require("node-geocoder");
-
-const geocoder = NodeGeocoder({
-  apiKey: process.env.REACT_APP_GOOGLE_KEY,
-});
 
 export const locationRouter = createRouter()
   .mutation("create", {
@@ -40,23 +35,21 @@ export const locationRouter = createRouter()
   })
   .query("get-nearby", {
     input: z.object({
-      address: z.string(),
+      lat: z.number(),
+      lng: z.number(),
     }),
     async resolve({ input, ctx }) {
-      const geoData = await geocoder.geocode(input.address);
-      return geoData;
-
-      // fetch(
-      //   `https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=${process.env.REACT_APP_GOOGLE_KEY}&location=,&radius=90`
-      // )
-      //   .then((response) => {
-      //     return response.json();
-      //   })
-      //   .then((data) => {
-      //     return data.results;
-      //   })
-      //   .catch((err) => {
-      //     console.log(err);
-      //   });
+      fetch(
+        `https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=${process.env.REACT_APP_GOOGLE_KEY}&location=${input.lat},${input.lng}&radius=90`
+      )
+        .then((response) => {
+          return response.json();
+        })
+        .then((data) => {
+          return data.results;
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     },
   });
