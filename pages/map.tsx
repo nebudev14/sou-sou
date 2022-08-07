@@ -1,10 +1,14 @@
 import { NextPage } from "next";
 import { MapView } from "../components/map";
+import { Search } from "../components/search";
 
 const Map: NextPage = () => {
   return (
     <div className="grid h-screen grid-cols-2">
-      <div className="text-center border-r-4 border-white">
+      <div className="flex flex-col items-start justify-start text-center border-r-4 border-white">
+        <div className="px-4">
+        <Search />
+        </div>
         <MapView />
       </div>
       <div className="px-4 py-6 text-center border-r-4 border-white">
