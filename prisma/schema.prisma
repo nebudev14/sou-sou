@@ -51,14 +51,24 @@ model User {
 }
 
 model Group {
-  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  id        String     @id @default(auto()) @map("_id") @db.ObjectId
   name      String
-  userIds   String[]  @db.ObjectId
-  users     User[]    @relation(fields: [userIds], references: [id])
+  userIds   String[]   @db.ObjectId
+  users     User[]     @relation(fields: [userIds], references: [id])
+  locations Location[]
+}
+
+model Location {
+  id      String @id @default(auto()) @map("_id") @db.ObjectId
+  name    String @unique
+  lat     Float
+  lng     Float
+  groupId String
+  group   Group  @relation(fields: [groupId], references: [id])
 }
 
 model VerificationToken {
-  id  String  @id @default(auto()) @map("_id") @db.ObjectId
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
   identifier String
   token      String   @unique
   expires    DateTime
