@@ -10,6 +10,11 @@ export const groupRouter = createRouter()
       return await ctx.prisma.group.create({
         data: {
           name: input.name,
+          users: {
+            create: {
+              id: ctx.session!.user.id,
+            },
+          },
         },
       });
     },
