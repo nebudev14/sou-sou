@@ -24,7 +24,7 @@ export const groupRouter = createRouter()
       id: z.string(),
     }),
     async resolve({ input, ctx }) {
-      return await prisma.group.findMany({
+      return await ctx.prisma.group.findMany({
         where: { id: input.id },
         include: {
           locations: true,
