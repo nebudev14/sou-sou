@@ -60,7 +60,7 @@ model Group {
 
 model Location {
   id      String @id @default(auto()) @map("_id") @db.ObjectId
-  name    String @unique
+  address String @unique
   lat     Float
   lng     Float
   groupId String
