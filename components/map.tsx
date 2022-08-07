@@ -8,6 +8,8 @@ import {
 import { useAtom } from "jotai";
 import { selectedAddressAtom } from "../server/atoms";
 import { useQuery } from "../hooks/trpc";
+import { MarkerModal } from "./modals/marker-modal";
+import { useState } from "react";
 
 export const MapView: React.FC = () => {
   const container = {
@@ -33,7 +35,7 @@ export const MapView: React.FC = () => {
 
   console.log(nearbyData);
 
-  const onMapClick = (e: google.maps.MapMouseEvent) => {};
+  const [markerData, setMarkerData] = useState();
 
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
@@ -60,12 +62,20 @@ export const MapView: React.FC = () => {
           // onUnmount={unMount}
         >
           {nearbyData?.map((marker: any) => (
-            <Marker key={marker.place_id} position={marker.geometry.location} />
+            <Marker
+              key={marker.place_id}
+              position={marker.geometry.location}
+              onClick={() => setMarkerData({
+                business_status: marker.business_status,
+                
+              })}
+            />
           ))}
         </GoogleMap>
       ) : (
         <h1>Loading</h1>
       )}
+      <MarkerModal markerData={markerData} />
     </>
   );
 };

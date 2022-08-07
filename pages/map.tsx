@@ -5,23 +5,6 @@ import { Search } from "../components/search";
 import { useQuery } from "../hooks/trpc";
 
 const Map: NextPage = () => {
-
-  const groups = [
-    {
-      name: "mcdonalds"
-    },
-    {
-      name: "wendys"
-    },
-    {
-      name: "burgerking"
-    },
-    {
-      name: "askdlfcjml"
-    },
-    
-  ];
-
   const { data: userData } = useSession();
 
   const { data: groupData } = useQuery([
