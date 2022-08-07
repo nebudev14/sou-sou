@@ -1,9 +1,13 @@
 import type { NextPage } from "next";
 import { signIn } from "next-auth/react";
 import { useSession } from "next-auth/react";
+import { useQuery } from "../hooks/trpc";
 
 const Home: NextPage = () => {
   const { data: session, status } = useSession();
+  const data = useQuery([
+    ""
+  ])
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
