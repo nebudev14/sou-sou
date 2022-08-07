@@ -10,8 +10,6 @@ const Home: NextPage = () => {
     { address: "Central Park" }
   ])
 
-  console.log(nearbyData)
-
   return (
     <div className="flex flex-col items-center justify-center h-screen">
       {status === "unauthenticated" ? (
