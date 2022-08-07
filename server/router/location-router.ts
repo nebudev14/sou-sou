@@ -1,5 +1,12 @@
+import axios from "axios";
 import { z } from "zod";
 import { createRouter } from "../create-router";
+
+const NodeGeocoder = require("node-geocoder");
+
+export const geocoder = NodeGeocoder({
+  apiKey: process.env.REACT_APP_GOOGLE_KEY,
+});
 
 export const locationRouter = createRouter()
   .mutation("create", {
@@ -35,21 +42,15 @@ export const locationRouter = createRouter()
   })
   .query("get-nearby", {
     input: z.object({
-      lat: z.number(),
-      lng: z.number(),
+      address: z.string(),
     }),
     async resolve({ input, ctx }) {
-      fetch(
-        `https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=${process.env.REACT_APP_GOOGLE_KEY}&location=${input.lat},${input.lng}&radius=90`
-      )
-        .then((response) => {
-          return response.json();
-        })
-        .then((data) => {
-          return data.results;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      const geocoded = await geocoder.geocode(input.address);
+      const link = `https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=${
+        process.env.REACT_APP_GOOGLE_KEY
+      }&location=${geocoded.at(0).latitude},${
+        geocoded.at(0).longitude
+      }&radius=90`;
+      return (await axios(link)).data.results;
     },
   });
