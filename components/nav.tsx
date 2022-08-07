@@ -4,6 +4,7 @@ import { useSession } from "next-auth/react";
 
 export const Nav: React.FC = () => {
   const { data: session } = useSession();
+  
 
   return (
     <div className="flex items-center px-4 py-2 bg-golden-yellow border-b-2 border-gray-400">
