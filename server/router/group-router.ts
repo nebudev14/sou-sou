@@ -4,13 +4,27 @@ import { z } from "zod";
 export const groupRouter = createRouter()
   .mutation("create", {
     input: z.object({
-      name: z.string()
+      name: z.string(),
     }),
     async resolve({ input, ctx }) {
       return await ctx.prisma.group.create({
         data: {
-          name: input.name
-        }
-      })
-    }
+          name: input.name,
+        },
+      });
+    },
+  })
+  .query("get-by-user", {
+    input: z.object({
+      id: z.string(),
+    }),
+    async resolve({ input, ctx }) {
+      return await prisma.group.findMany({
+        where: { id: input.id },
+        include: {
+          locations: true,
+          users: true,
+        },
+      });
+    },
   });
