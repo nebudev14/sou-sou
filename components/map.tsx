@@ -4,7 +4,10 @@ import {
   InfoWindow,
   useJsApiLoader,
 } from "@react-google-maps/api";
-import { useRef } from "react";
+
+import { useAtom } from "jotai";
+import { selectedAddressAtom } from "../server/atoms";
+import { useQuery } from "../hooks/trpc";
 
 export const MapView: React.FC = () => {
   const container = {
@@ -22,12 +25,22 @@ export const MapView: React.FC = () => {
     zoomControl: true
   }
 
+  const [address, ] = useAtom(selectedAddressAtom);
+  const { data: nearbyData } = useQuery([
+    "location.get-nearby",
+    { address: address }
+  ]);
+
+  console.log(nearbyData)
+
+  const onMapClick = (e: google.maps.MapMouseEvent) => {
+    
+  }
+
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: process.env.REACT_APP_GOOGLE_KEY,
   });
-
-  console.log(process.env.REACT_APP_GOOGLE_KEY);
 
   // const mapRef = useRef<google.maps.Map | null>(null);
 
@@ -47,7 +60,14 @@ export const MapView: React.FC = () => {
           center={center}
           // onLoad={onLoad}
           // onUnmount={unMount}
-        />
+        >
+          {nearbyData?.map(marker => (
+            <Marker 
+              key={marker.place_id}
+              position={marker.geometry.location}
+            />
+          ))}
+        </GoogleMap>
       ) : (
         <h1>Loading</h1>
       )}
