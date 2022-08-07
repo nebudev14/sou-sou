@@ -7,7 +7,7 @@ const Home: NextPage = () => {
   const { data: session, status } = useSession();
   const { data: nearbyData } = useQuery([
     "location.get-nearby",
-    { address: "75 W 205th St, The Bronx, NY 10468" }
+    { address: "Central Park" }
   ])
 
   console.log(nearbyData)
