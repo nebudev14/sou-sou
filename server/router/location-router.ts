@@ -5,7 +5,10 @@ import { createRouter } from "../create-router";
 export const locationRouter = createRouter().mutation("create", {
   input: z.object({
     address: z.string(),
-    groupId: z.string()
+    name: z.string(),
+    groupId: z.string(),
+    lat: z.number(),
+    lng: z.number()
   }),
   async resolve({ input, ctx }) {
     fetch(
@@ -18,8 +21,9 @@ export const locationRouter = createRouter().mutation("create", {
         data: {
           groupId: input.groupId,
           address: input.address,
-          lat: data.results[0].geometry.location.lat,
-          lng: data.results[0].geometry.location.lng,
+          name: input.name,
+          lat: input.lat,
+          lng: input.lng,
         }
       })
     })
