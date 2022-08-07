@@ -1,6 +1,10 @@
-import axios from "axios";
 import { z } from "zod";
 import { createRouter } from "../create-router";
+const NodeGeocoder = require("node-geocoder");
+
+const geocoder = NodeGeocoder({
+  apiKey: process.env.REACT_APP_GOOGLE_KEY,
+});
 
 export const locationRouter = createRouter()
   .mutation("create", {
@@ -39,17 +43,20 @@ export const locationRouter = createRouter()
       address: z.string(),
     }),
     async resolve({ input, ctx }) {
-      fetch(
-        `https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=${process.env.REACT_APP_GOOGLE_KEY}&location=,&radius=90`
-      )
-        .then((response) => {
-          return response.json();
-        })
-        .then((data) => {
-          return data.results;
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      const geoData = await geocoder.geocode(input.address);
+      return geoData;
+
+      // fetch(
+      //   `https://maps.googleapis.com/maps/api/place/nearbysearch/json?key=${process.env.REACT_APP_GOOGLE_KEY}&location=,&radius=90`
+      // )
+      //   .then((response) => {
+      //     return response.json();
+      //   })
+      //   .then((data) => {
+      //     return data.results;
+      //   })
+      //   .catch((err) => {
+      //     console.log(err);
+      //   });
     },
   });
