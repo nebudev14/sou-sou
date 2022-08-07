@@ -6,9 +6,9 @@ const Home: NextPage = () => {
   const userData = useSession();
 
   return (
-    <div className="h-screen flex items-center justify-center flex-col">
+    <div className="flex flex-col items-center justify-center h-screen">
       <button
-        className="bg-pink-600 px-4 py-3 rounded-xl text-2xl hover:bg-pink-800 duration-200 mb-4"
+        className="px-4 py-3 mb-4 text-2xl text-white duration-200 bg-pink-600 rounded-xl hover:bg-pink-800"
         onClick={() => signIn("google")}
       >
         Sign up!
