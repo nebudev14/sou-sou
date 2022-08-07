@@ -2,13 +2,10 @@ import React, { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { useAtom } from "jotai";
 import { markerModalAtom } from "../../server/atoms";
+import { MarkerData } from "../../types/marker-data";
 
 export const MarkerModal: React.FC<{
-  markerData?: {
-    business_status?: string;
-    name?: string;
-    types?: string[];
-  }
+  markerData?: MarkerData
 }> = ({ markerData }) => {
   const [isOpen, setIsOpen] = useAtom(markerModalAtom);
 
@@ -41,10 +38,10 @@ export const MarkerModal: React.FC<{
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-md p-6 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+              <Dialog.Panel className="w-full max-w-md p-6 overflow-hidden text-left align-middle transition-all transform shadow-xl bg-sage-blue rounded-2xl">
                 <Dialog.Title
                   as="h3"
-                  className="text-lg font-medium leading-6 text-center text-gray-900"
+                  className="text-lg font-medium leading-6 text-left text-gray-900"
                 >
                   {markerData?.name}
                 </Dialog.Title>

@@ -6,10 +6,11 @@ import {
 } from "@react-google-maps/api";
 
 import { useAtom } from "jotai";
-import { selectedAddressAtom } from "../server/atoms";
+import { markerModalAtom, selectedAddressAtom } from "../server/atoms";
 import { useQuery } from "../hooks/trpc";
 import { MarkerModal } from "./modals/marker-modal";
 import { useState } from "react";
+import { MarkerData } from "../types/marker-data";
 
 export const MapView: React.FC = () => {
   const container = {
@@ -35,7 +36,8 @@ export const MapView: React.FC = () => {
 
   console.log(nearbyData);
 
-  const [markerData, setMarkerData] = useState();
+  const [markerData, setMarkerData] = useState<MarkerData>();
+  const [, setIsOpen] = useAtom(markerModalAtom);
 
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
@@ -65,10 +67,14 @@ export const MapView: React.FC = () => {
             <Marker
               key={marker.place_id}
               position={marker.geometry.location}
-              onClick={() => setMarkerData({
-                business_status: marker.business_status,
-                
-              })}
+              onClick={() => {
+                setMarkerData({
+                  business_status: marker.business_status,
+                  name: marker.name,
+                  types: marker.types
+                });
+                setIsOpen(true);
+              }}
             />
           ))}
         </GoogleMap>
