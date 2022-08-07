@@ -14,28 +14,26 @@ export const MapView: React.FC = () => {
     width: "100%",
     height: "100%",
   };
-  
+
   const center = {
     lat: 40.7128,
-    lng: -74
+    lng: -74,
   };
 
   const options = {
     disableDefaultUI: true,
-    zoomControl: true
-  }
+    zoomControl: true,
+  };
 
-  const [address, ] = useAtom(selectedAddressAtom);
+  const [address] = useAtom(selectedAddressAtom);
   const { data: nearbyData } = useQuery([
     "location.get-nearby",
-    { address: address }
+    { address: address },
   ]);
 
-  console.log(nearbyData)
+  console.log(nearbyData);
 
-  const onMapClick = (e: google.maps.MapMouseEvent) => {
-    
-  }
+  const onMapClick = (e: google.maps.MapMouseEvent) => {};
 
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
@@ -61,11 +59,8 @@ export const MapView: React.FC = () => {
           // onLoad={onLoad}
           // onUnmount={unMount}
         >
-          {nearbyData?.map(marker => (
-            <Marker 
-              key={marker.place_id}
-              position={marker.geometry.location}
-            />
+          {nearbyData?.map((marker: any) => (
+            <Marker key={marker.place_id} position={marker.geometry.location} />
           ))}
         </GoogleMap>
       ) : (
