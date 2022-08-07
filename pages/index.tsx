@@ -3,17 +3,24 @@ import { signIn } from "next-auth/react";
 import { useSession } from "next-auth/react";
 
 const Home: NextPage = () => {
-  const userData = useSession();
+  const { data: session, status } = useSession();
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
-      <button
-        className="px-4 py-3 mb-4 text-2xl text-white duration-200 bg-pink-600 rounded-xl hover:bg-pink-800"
-        onClick={() => signIn("google")}
-      >
-        Sign up!
-      </button>
-      {userData?.data?.user?.name}
+      {status === "unauthenticated" ? (
+        <>
+          <button
+            className="px-4 py-3 mb-4 text-2xl text-white duration-200 bg-pink-600 rounded-xl hover:bg-pink-800"
+            onClick={() => signIn("google")}
+          >
+            Sign up!
+          </button>
+        </>
+      ) : (
+        <>
+          <h1 className="text-2xl">Welcome, {session?.user?.name}</h1>
+        </>
+      )}
     </div>
   );
 };
