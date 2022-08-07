@@ -57,7 +57,6 @@ model Group {
   users     User[]    @relation(fields: [userIds], references: [id])
 }
 
-
 model VerificationToken {
   id  String  @id @default(auto()) @map("_id") @db.ObjectId
   identifier String
