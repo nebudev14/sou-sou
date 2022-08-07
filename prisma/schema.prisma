@@ -46,7 +46,17 @@ model User {
   image         String?
   accounts      Account[]
   sessions      Session[]
+  groupIds      String[]  @db.ObjectId
+  groups        Group[]   @relation(fields: [groupIds], references: [id])
 }
+
+model Group {
+  id        String    @id @default(auto()) @map("_id") @db.ObjectId
+  name      String
+  userIds   String[]  @db.ObjectId
+  users     User[]    @relation(fields: [userIds], references: [id])
+}
+
 
 model VerificationToken {
   id  String  @id @default(auto()) @map("_id") @db.ObjectId
