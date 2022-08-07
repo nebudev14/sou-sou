@@ -9,7 +9,7 @@ import { useRef } from "react";
 export const MapView: React.FC = () => {
   const container = {
     width: "100%",
-    height: "100vh",
+    height: "100%",
   };
   
   const center = {

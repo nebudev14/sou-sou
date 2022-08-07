@@ -4,14 +4,14 @@ import { Search } from "../components/search";
 
 const Map: NextPage = () => {
   return (
-    <div className="grid h-screen grid-cols-2">
-      <div className="flex flex-col items-start justify-start text-center border-r-4 border-white">
+    <div className="grid h-screen grid-cols-2 overflow-hidden">
+      <div className="flex flex-col items-start justify-start text-center border-r-2 border-black">
         <div className="px-4">
         <Search />
         </div>
         <MapView />
       </div>
-      <div className="px-4 py-6 text-center border-r-4 border-white">
+      <div className="px-4 py-6 text-center">
         <h1 className="mb-8 text-3xl">YOUR HANGOUTS</h1>
         <div className="grid h-screen grid-rows-2">
           <div className="grid grid-cols-2">
