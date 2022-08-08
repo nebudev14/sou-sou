@@ -1,6 +1,33 @@
 import { NextPage } from "next"; 
+import { useSession } from "next-auth/react";
+import { useQuery } from "../hooks/trpc";
 
 const Userpage: NextPage = () => {
+  
+  const groups = [
+    {
+      name: "mcdonalds"
+    },
+    {
+      name: "wendys"
+    },
+    {
+      name: "burgerking"
+    },
+    {
+      name: "askdlfcjml"
+    },
+    
+  ];
+
+  const { data: userData } = useSession();
+
+  const { data: groupData } = useQuery([
+    "group.get-by-user",
+    { id: userData?.user?.id as string }
+  ]);
+
+  
   return (
     <div>
       <div className="h-screen grid grid-cols-2">
@@ -26,25 +53,13 @@ const Userpage: NextPage = () => {
           <div className="grid h-screen grid-rows-3">
             <div className="grid grid-cols-2">
               <div className="border-r-2 border-cream">
-                <h2 className="text-golden-yellow text-2xl">
-                GROUPS
-                </h2>
-                <div className="grid p-2.5">
-                  <div className="text-cream border-b-2 border-t-2 p-2 border-cream hover:bg-baby-pink hover:text-sage-blue">
-                    group 1
-                  </div>
-                  <div className="text-cream border-b-2 p-2 border-cream hover:bg-baby-pink hover:text-sage-blue">
-                    group 2
-                  </div>
-                  <div className="text-cream border-b-2 p-2 border-cream hover:bg-baby-pink hover:text-sage-blue">
-                    group 3
-                  </div>
-                  <div className="text-cream border-b-2 p-2 border-cream hover:bg-baby-pink hover:text-sage-blue">
-                    group 4
-                  </div>
-                </div>
+                <h1 className="text-golden-yellow text-2xl p-2.5">GROUPS</h1>
+                {groupData?.map((group, i) => (
+                  <h1 className="p-2 text-4xl text-cream border-b-2 border-cream hover:bg-baby-pinnk hover:text-sage-blue" 
+                      key={i}>{group.name}</h1>
+                ))}
               </div>
-
+              
               <div>
                 <h2 className="text-golden-yellow text-2xl">
                 PEOPLE
@@ -52,18 +67,6 @@ const Userpage: NextPage = () => {
                 <div className="grid p-2.5">
                   <div className="text-cream border-b-2 border-t-2 p-2 border-cream">
                     person 1
-                  </div>
-                  <div className="text-cream border-b-2 p-2 border-cream">
-                    person 2
-                  </div>
-                  <div className="text-cream border-b-2 p-2 border-cream">
-                    person 3
-                  </div>
-                  <div className="text-cream border-b-2 p-2 border-cream">
-                    person 4
-                  </div>
-                  <div className="text-cream border-b-2 p-2 border-cream">
-                    person 5
                   </div>
                 </div>
               </div>

@@ -29,7 +29,7 @@ const Map: NextPage = () => {
     { id: userData?.user?.id as string }
   ]);
 
-  // groupData?.at(0)?.users.map
+  //groupData?.at(0)?.users.map
   
   return (
     <div className="grid h-screen grid-cols-2 overflow-hidden">
@@ -39,19 +39,28 @@ const Map: NextPage = () => {
         </div>
         <MapView />
       </div>
-      <div className="px-4 py-6 text-center">
-        <h1 className="mb-8 text-3xl">YOUR HANGOUTS</h1>
+      <div className="px-4 py-6 text-center bg-sage-blue">
+        <h1 className="mt-8 mb-8 text-baby-pink text-3xl">YOUR HANGOUTS</h1>
         <div className="grid h-screen grid-rows-2">
           <div className="grid grid-cols-2">
-            <div className="border-r-2 border-black ">
-              <h1 className="mb-4">GROUPS</h1>
-              {groupData?.map((restaurant, i) => (
-                <h1 className="text-4xl" key={i}>{restaurant.name}</h1>
+            <div className="border-r-2 border-cream ">
+              <h1 className="mb-4 text-golden-yellow text-2xl p-2.5 border-b-2 border-cream">GROUPS</h1>
+              {groupData?.map((group, i) => (
+                <h1 className="text-p-2 text-4xl text-cream border-b-2 border-cream hover:bg-baby-pinnk hover:text-sage-blue" 
+                key={i}>{group.name}</h1>
               ))}
             </div>
-            <div>PEOPLE</div>
+            <div>
+              <h1 className="mb-4 text-golden-yellow text-2xl p-2.5 border-b-2 border-cream">PEOPLE</h1>
+              {groupData?.at(0)?.users.map((user, i) => (
+                <h1 className="text-p-2 text-4xl text-cream border-b-2 border-cream hover:bg-baby-pinnk hover:text-sage-blue" 
+                key={i}>{user.name}</h1>
+              ))}
+            </div>
           </div>
-          <div className="mt-8">PLACES</div>
+          <div>
+            <h1 className="mt-8 text-golden-yellow text-2xl">PLACES</h1>
+          </div>
         </div>
       </div>
     </div>
