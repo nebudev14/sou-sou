@@ -4,8 +4,9 @@ import { MapView } from "../components/map";
 import { Search } from "../components/search";
 import { useQuery } from "../hooks/trpc";
 import { useAtom } from "jotai";
-import { createGroupAtom } from "../server/atoms";
+import { createGroupAtom, selectedGroupAtom } from "../server/atoms";
 import { CreateGroupModal } from "../components/modals/create-group-modal";
+import { BsCheckLg } from "react-icons/Bs";
 
 const Map: NextPage = () => {
   const { data: userData } = useSession();
@@ -15,10 +16,8 @@ const Map: NextPage = () => {
     { id: userData?.user?.id as string },
   ]);
 
-  console.log(groupData)
-
   const [groupIsOpen, setGroupIsOpen] = useAtom(createGroupAtom);
-
+  const [selectedGroup, setSelectedGroup] = useAtom(selectedGroupAtom);
 
   return (
     <div className="grid h-screen grid-cols-2 overflow-hidden">
@@ -28,7 +27,7 @@ const Map: NextPage = () => {
         </div>
         <MapView />
       </div>
-      <div className="px-4 py-6 text-center bg-sage-blue">
+      <div className="py-6 text-center bg-sage-blue">
         <h1 className="mt-8 mb-8 text-3xl text-baby-pink">YOUR HANGOUTS</h1>
         <div className="grid h-screen grid-rows-2">
           <div className="grid grid-cols-2">
@@ -45,12 +44,23 @@ const Map: NextPage = () => {
                 </button>
               </div>
               {groupData?.map((group, i) => (
-                <h1
-                  className="py-4 text-2xl duration-200 border-b-2 text-p-2 text-cream border-cream hover:cursor-pointer hover:text-sage-blue hover:bg-baby-pink"
+                <div
                   key={i}
+                  className="flex items-center justify-center py-4 text-2xl duration-200 border-b-2 text-p-2 text-cream border-cream hover:cursor-pointer hover:text-sage-blue hover:bg-baby-pink"
+                  onClick={() => setSelectedGroup(group)}
                 >
-                  {group.name}
-                </h1>
+                  <h1
+                    className="mr-6"
+                    key={i}
+
+                  >
+                    {group.name}
+                    
+                  </h1>
+                  {group === selectedGroup ? (
+                      <BsCheckLg className="text-xl" />
+                    ) : null}
+                </div>
               ))}
             </div>
 

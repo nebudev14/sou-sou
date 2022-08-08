@@ -1,5 +1,6 @@
 import { createRouter } from "../create-router";
 import { z } from "zod";
+import { truncate } from "fs";
 
 export const groupRouter = createRouter()
   .mutation("create", {
@@ -12,9 +13,9 @@ export const groupRouter = createRouter()
           name: input.name,
           users: {
             connect: {
-              id: ctx.session!.user.id
-            }
-          }
+              id: ctx.session!.user.id,
+            },
+          },
         },
       });
     },
@@ -25,18 +26,15 @@ export const groupRouter = createRouter()
     }),
     async resolve({ input, ctx }) {
       return await ctx.prisma.group.findMany({
-        where: { userIds: {
-          has: input.id
-        } },
-        select: {
-          name: true,
-          users: {
-            select: {
-              name: true,
-            }
-          }
+        where: {
+          userIds: {
+            has: input.id,
+          },
         },
-
+        include: {
+          locations: true,
+          users: true,
+        },
       });
     },
   });
