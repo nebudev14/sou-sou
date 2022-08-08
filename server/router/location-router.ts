@@ -17,25 +17,14 @@ export const locationRouter = createRouter()
       lng: z.number(),
     }),
     async resolve({ input, ctx }) {
-      fetch(
-        `https://maps.googleapis.com/maps/api/geocode/json?address=${input.address}&key=${process.env.REACT_APP_GOOGLE_KEY}`
-      )
-        .then((response) => {
-          return response.json();
-        })
-        .then((data) => {
-          return prisma.location.create({
-            data: {
-              groupId: input.groupId,
-              address: input.address,
-              lat: input.lat,
-              lng: input.lng,
-            },
-          });
-        })
-        .catch((err) => {
-          console.log(err);
-        });
+      return await ctx.prisma.location.create({
+        data: {
+          groupId: input.groupId,
+          address: input.address,
+          lat: input.lat,
+          lng: input.lng,
+        },
+      });
     },
   })
   .query("get-nearby", {
