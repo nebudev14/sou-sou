@@ -62,6 +62,13 @@ const Map: NextPage = () => {
                 </div>
               ))}
             </div>
+<<<<<<< HEAD
+            <div>
+              <h1 className="mb-4 text-golden-yellow text-2xl p-2.5 border-b-2 border-cream">PEOPLE</h1>
+              {groupData?.map((user, i) => (
+                <h1 className="text-p-2 text-4xl text-cream border-b-2 border-cream hover:bg-baby-pink hover:text-sage-blue" 
+                key={i}>{user.name}</h1>
+=======
 
             <div className="mb-4 border-r-2 border-cream ">
               <div className="flex flex-row items-center justify-center border-b-2 border-cream">
@@ -85,6 +92,7 @@ const Map: NextPage = () => {
                   </h1>
 
                 </div>
+>>>>>>> 9fa35b7a5370b94bd5e4b382337eef1c9673b7ca
               ))}
             </div>
           </div>
