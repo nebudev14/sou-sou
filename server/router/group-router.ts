@@ -20,6 +20,26 @@ export const groupRouter = createRouter()
       });
     },
   })
+  .mutation("add-person", {
+    input: z.object({
+      id: z.string(),
+      email: z.string(),
+    }),
+    async resolve({ input, ctx }) {
+      return await ctx.prisma.group.update({
+        where: {
+          id: input.id,
+        },
+        data: {
+          users: {
+            connect: {
+              email: input.email,
+            },
+          },
+        },
+      });
+    },
+  })
   .query("get-by-user", {
     input: z.object({
       id: z.string(),

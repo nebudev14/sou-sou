@@ -4,7 +4,7 @@ import { MapView } from "../components/map";
 import { Search } from "../components/search";
 import { useQuery } from "../hooks/trpc";
 import { useAtom } from "jotai";
-import { createGroupAtom, selectedGroupAtom } from "../server/atoms";
+import { addPeopleAtom, createGroupAtom, selectedGroupAtom } from "../server/atoms";
 import { CreateGroupModal } from "../components/modals/create-group-modal";
 import { BsCheckLg } from "react-icons/Bs";
 
