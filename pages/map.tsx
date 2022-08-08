@@ -19,7 +19,6 @@ const Map: NextPage = () => {
 
   const [groupIsOpen, setGroupIsOpen] = useAtom(createGroupAtom);
 
-  //groupData?.at(0)?.users.map
 
   return (
     <div className="grid h-screen grid-cols-2 overflow-hidden">
@@ -47,7 +46,7 @@ const Map: NextPage = () => {
               </div>
               {groupData?.map((group, i) => (
                 <h1
-                  className="text-4xl border-b-2 text-p-2 text-cream border-cream hover:bg-baby-pinnk hover:text-sage-blue"
+                  className="py-4 text-2xl duration-200 border-b-2 text-p-2 text-cream border-cream hover:cursor-pointer hover:text-sage-blue hover:bg-baby-pink"
                   key={i}
                 >
                   {group.name}
