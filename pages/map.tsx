@@ -12,7 +12,7 @@ import {
 import { CreateGroupModal } from "../components/modals/create-group-modal";
 import { BsCheckLg } from "react-icons/Bs";
 import { AddUserModal } from "../components/modals/add-people";
-import { User } from "@prisma/client";
+import { User, Location } from "@prisma/client";
 
 const Map: NextPage = () => {
   const { data: userData } = useSession();
@@ -92,7 +92,10 @@ const Map: NextPage = () => {
             </div>
           </div>
           <div>
-            <h1 className="mt-8 text-2xl text-golden-yellow">PLACES</h1>
+            <h1 className="mt-8 mb-6 text-2xl text-golden-yellow">PLACES</h1>
+            <div className="flex items-center justify-start">
+              
+            </div>
           </div>
         </div>
       </div>
