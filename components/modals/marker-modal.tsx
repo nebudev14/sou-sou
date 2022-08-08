@@ -3,11 +3,20 @@ import { Dialog, Transition } from "@headlessui/react";
 import { useAtom } from "jotai";
 import { markerModalAtom } from "../../server/atoms";
 import { MarkerData } from "../../types/marker-data";
+import { trpc, useMutation } from "../../hooks/trpc";
 
 export const MarkerModal: React.FC<{
   markerData?: MarkerData
 }> = ({ markerData }) => {
   const [isOpen, setIsOpen] = useAtom(markerModalAtom);
+
+  const { invalidateQueries } = trpc.useContext();
+
+  const mutateGroup = useMutation("group.create", {
+    onSuccess() {
+      invalidateQueries("group.get-by-user");
+    }
+  });
 
   return (
     <Transition appear show={isOpen} as={Fragment}>

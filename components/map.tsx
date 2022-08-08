@@ -71,7 +71,9 @@ export const MapView: React.FC = () => {
                 setMarkerData({
                   business_status: marker.business_status,
                   name: marker.name,
-                  types: marker.types
+                  types: marker.types,
+                  lat: marker.geometry.location.lat,
+                  lng: marker.geometry.location.lng
                 });
                 console.log(marker.geometry.location)
                 mapRef?.current?.panTo(marker.geometry.location)
