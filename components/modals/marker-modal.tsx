@@ -39,12 +39,17 @@ export const MarkerModal: React.FC<{
               leaveTo="opacity-0 scale-95"
             >
               <Dialog.Panel className="w-full max-w-md p-6 overflow-hidden text-left align-middle transition-all transform shadow-xl bg-light-coral rounded-2xl">
+                <div className="flex items-center">
                 <Dialog.Title
                   as="h3"
-                  className="text-lg font-medium leading-6 text-left text-white text-gray-900"
+                  className="mr-auto text-lg font-medium leading-6 text-left text-white text-gray-900"
                 >
                   {markerData?.name}
                 </Dialog.Title>
+                <button className="px-2 text-2xl text-center rounded-lg bg-baby-pink">
+                  +
+                </button>
+                </div>
       
                   <p className="mt-2 mb-4 text-sm text-white">{markerData?.business_status}</p>
                   <div className="flex flex-wrap">
