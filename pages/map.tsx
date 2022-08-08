@@ -7,6 +7,7 @@ import { useAtom } from "jotai";
 import { addPeopleAtom, createGroupAtom, selectedGroupAtom } from "../server/atoms";
 import { CreateGroupModal } from "../components/modals/create-group-modal";
 import { BsCheckLg } from "react-icons/Bs";
+import { AddUserModal } from "../components/modals/add-people";
 
 const Map: NextPage = () => {
   const { data: userData } = useSession();
@@ -19,7 +20,7 @@ const Map: NextPage = () => {
   const [groupIsOpen, setGroupIsOpen] = useAtom(createGroupAtom);
   const [, setPeopleIsOpen] = useAtom(addPeopleAtom);  
   const [selectedGroup, setSelectedGroup] = useAtom(selectedGroupAtom);
-  
+  console.log(selectedGroup)
 
   return (
     <div className="grid h-screen grid-cols-2 overflow-hidden">
@@ -68,23 +69,20 @@ const Map: NextPage = () => {
                 </h1>
                 <button
                   className="px-2.5 py-1.5 text-white rounded-xl bg-golden-yellow"
-                  onClick={() => setGroupIsOpen(true)}
+                  onClick={() => setPeopleIsOpen(true)}
                 >
                   +
                 </button>
               </div>
-              {groupData?.map((group, i) => (
+              {selectedGroup?.users?.map((user, i) => (
                 <div
                   key={i}
                   className="flex items-center justify-center py-4 text-2xl duration-200 border-b-2 text-p-2 text-cream border-cream hover:cursor-pointer hover:text-sage-blue hover:bg-baby-pink"
-                  onClick={() => setSelectedGroup(group)}
                 >
                   <h1 className="mr-6" key={i}>
-                    {group.name}
+                    {user?.name}
                   </h1>
-                  {group === selectedGroup ? (
-                    <BsCheckLg className="text-xl" />
-                  ) : null}
+
                 </div>
               ))}
             </div>
@@ -95,6 +93,7 @@ const Map: NextPage = () => {
         </div>
       </div>
       <CreateGroupModal />
+      <AddUserModal />
     </div>
   );
 };

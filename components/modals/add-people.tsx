@@ -1,27 +1,30 @@
 import React, { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { useAtom } from "jotai";
-import { createGroupAtom } from "../../server/atoms";
+import { addPeopleAtom, selectedGroupAtom } from "../../server/atoms";
 import { useMutation, trpc } from "../../hooks/trpc";
 
-export const CreateGroupModal: React.FC = () => {
-  const [isOpen, setIsOpen] = useAtom(createGroupAtom);
+export const AddUserModal: React.FC = () => {
+  const [isOpen, setIsOpen] = useAtom(addPeopleAtom);
+  const [selectedGroup, ] = useAtom(selectedGroupAtom);
+
   const { invalidateQueries } = trpc.useContext();
 
-  const mutateGroup = useMutation("group.create", {
+  const mutateGroup = useMutation("group.add-person", {
     onSuccess() {
       invalidateQueries("group.get-by-user");
     }
   });
 
-  const createGroup = async (event: React.SyntheticEvent) => {
+  const addUser = async (event: React.SyntheticEvent) => {
     event.preventDefault();
     const target = event.target as typeof event.target & {
-      groupName: { value: string; }
+      userEmail: { value: string; }
     };
     
     await mutateGroup.mutateAsync({
-      name: target.groupName.value
+      id: selectedGroup?.id as string,
+      email: target.userEmail.value
     });
     setIsOpen(false);
 
@@ -56,28 +59,28 @@ export const CreateGroupModal: React.FC = () => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <form onSubmit={createGroup}>
+              <form onSubmit={addUser}>
                 <Dialog.Panel className="max-w-md p-6 overflow-hidden text-left align-middle transition-all transform shadow-xl bg-light-coral rounded-2xl">
                   <div className="flex items-center mb-4">
                     <Dialog.Title
                       as="h3"
                       className="mr-auto text-lg font-medium leading-6 text-left text-white text-gray-900"
                     >
-                      Create a group
+                      Add a user
                     </Dialog.Title>
                   </div>
                   <div className="flex flex-row items-center justify-start">
                     <input
                       className="p-3 mr-4 rounded-lg shadow-xl outline-none"
-                      name="groupName"
-                      placeholder="Name"
+                      name="userEmail"
+                      placeholder="User email"
                       autoComplete="off"
                     />
                     <button
                       type="submit"
                       className="px-3 py-2 text-xl text-center rounded-lg bg-baby-pink"
                     >
-                      Create!
+                      Add!
                     </button>
                   </div>
                 </Dialog.Panel>

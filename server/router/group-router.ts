@@ -53,7 +53,12 @@ export const groupRouter = createRouter()
         },
         include: {
           locations: true,
-          users: true,
+          users: {
+            select: {
+              name: true,
+              image: true
+            }
+          },
         },
       });
     },
