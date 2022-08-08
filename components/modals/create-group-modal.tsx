@@ -2,18 +2,29 @@ import React, { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { useAtom } from "jotai";
 import { createGroupAtom } from "../../server/atoms";
-import { useMutation } from "../../hooks/trpc";
+import { useMutation, trpc } from "../../hooks/trpc";
 
 export const CreateGroupModal: React.FC = () => {
   const [isOpen, setIsOpen] = useAtom(createGroupAtom);
+  const { invalidateQueries } = trpc.useContext();
+
+  const mutateGroup = useMutation("group.create", {
+    onSuccess() {
+      invalidateQueries("group.get-by-user");
+    }
+  });
 
   const createGroup = async (event: React.SyntheticEvent) => {
     event.preventDefault();
     const target = event.target as typeof event.target & {
       groupName: { value: string; }
     };
-
     
+    await mutateGroup.mutateAsync({
+      name: target.groupName.value
+    });
+    setIsOpen(false);
+
   }
 
   return (
@@ -45,7 +56,7 @@ export const CreateGroupModal: React.FC = () => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <form>
+              <form onSubmit={createGroup}>
                 <Dialog.Panel className="max-w-md p-6 overflow-hidden text-left align-middle transition-all transform shadow-xl bg-light-coral rounded-2xl">
                   <div className="flex items-center mb-4">
                     <Dialog.Title

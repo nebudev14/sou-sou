@@ -15,6 +15,8 @@ const Map: NextPage = () => {
     { id: userData?.user?.id as string },
   ]);
 
+  console.log(groupData)
+
   const [groupIsOpen, setGroupIsOpen] = useAtom(createGroupAtom);
 
   //groupData?.at(0)?.users.map
