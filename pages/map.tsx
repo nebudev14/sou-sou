@@ -17,7 +17,9 @@ const Map: NextPage = () => {
   ]);
 
   const [groupIsOpen, setGroupIsOpen] = useAtom(createGroupAtom);
+  const [, setPeopleIsOpen] = useAtom(addPeopleAtom);  
   const [selectedGroup, setSelectedGroup] = useAtom(selectedGroupAtom);
+  
 
   return (
     <div className="grid h-screen grid-cols-2 overflow-hidden">
@@ -49,37 +51,41 @@ const Map: NextPage = () => {
                   className="flex items-center justify-center py-4 text-2xl duration-200 border-b-2 text-p-2 text-cream border-cream hover:cursor-pointer hover:text-sage-blue hover:bg-baby-pink"
                   onClick={() => setSelectedGroup(group)}
                 >
-                  <h1
-                    className="mr-6"
-                    key={i}
-
-                  >
+                  <h1 className="mr-6" key={i}>
                     {group.name}
-                    
                   </h1>
                   {group === selectedGroup ? (
-                      <BsCheckLg className="text-xl" />
-                    ) : null}
+                    <BsCheckLg className="text-xl" />
+                  ) : null}
                 </div>
               ))}
             </div>
 
-            <div className="mb-4 ">
+            <div className="mb-4 border-r-2 border-cream ">
               <div className="flex flex-row items-center justify-center border-b-2 border-cream">
                 <h1 className=" text-golden-yellow text-2xl mr-4 p-2.5 ">
                   PEOPLE
                 </h1>
-                <button className="px-2.5 py-1.5 text-white rounded-xl bg-golden-yellow">
+                <button
+                  className="px-2.5 py-1.5 text-white rounded-xl bg-golden-yellow"
+                  onClick={() => setGroupIsOpen(true)}
+                >
                   +
                 </button>
               </div>
               {groupData?.map((group, i) => (
-                <h1
-                  className="text-4xl border-b-2 text-p-2 text-cream border-cream hover:bg-baby-pinnk hover:text-sage-blue"
+                <div
                   key={i}
+                  className="flex items-center justify-center py-4 text-2xl duration-200 border-b-2 text-p-2 text-cream border-cream hover:cursor-pointer hover:text-sage-blue hover:bg-baby-pink"
+                  onClick={() => setSelectedGroup(group)}
                 >
-                  {group.name}
-                </h1>
+                  <h1 className="mr-6" key={i}>
+                    {group.name}
+                  </h1>
+                  {group === selectedGroup ? (
+                    <BsCheckLg className="text-xl" />
+                  ) : null}
+                </div>
               ))}
             </div>
           </div>
