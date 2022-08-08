@@ -1,9 +1,12 @@
-import React, { Fragment, useState } from "react";
+import React, { Fragment } from "react";
 import { Dialog, Transition } from "@headlessui/react";
 import { useAtom } from "jotai";
 import { markerModalAtom } from "../../server/atoms";
+import { MarkerData } from "../../types/marker-data";
 
-export const MarkerModal: React.FC = () => {
+export const MarkerModal: React.FC<{
+  markerData?: MarkerData
+}> = ({ markerData }) => {
   const [isOpen, setIsOpen] = useAtom(markerModalAtom);
 
   return (
@@ -35,16 +38,25 @@ export const MarkerModal: React.FC = () => {
               leaveFrom="opacity-100 scale-100"
               leaveTo="opacity-0 scale-95"
             >
-              <Dialog.Panel className="w-full max-w-md p-6 overflow-hidden text-left align-middle transition-all transform bg-white shadow-xl rounded-2xl">
+              <Dialog.Panel className="w-full max-w-md p-6 overflow-hidden text-left align-middle transition-all transform shadow-xl bg-light-coral rounded-2xl">
+                <div className="flex items-center">
                 <Dialog.Title
                   as="h3"
-                  className="text-lg font-medium leading-6 text-center text-gray-900"
+                  className="mr-auto text-lg font-medium leading-6 text-left text-white text-gray-900"
                 >
-                  
+                  {markerData?.name}
                 </Dialog.Title>
-                <div className="mt-2">
-                  <p className="text-sm text-gray-500"></p>
+                <button className="px-2 text-2xl text-center rounded-lg bg-baby-pink">
+                  +
+                </button>
                 </div>
+      
+                  <p className="mt-2 mb-4 text-sm text-white">{markerData?.business_status}</p>
+                  <div className="flex flex-wrap">
+                    {markerData?.types?.map((type, i) => (
+                      <h1 key={i} className="px-2 py-2 mb-2 mr-2 rounded-lg bg-baby-pink">{type}</h1>
+                    ))}
+                  </div>
 
                 
               </Dialog.Panel>

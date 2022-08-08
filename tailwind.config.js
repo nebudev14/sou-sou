@@ -12,6 +12,7 @@ module.exports = {
       'baby-pink': '#f5cac3',
       'cream': '#f7ede2',
       'golden-yellow': '#f6bd60',
+      'white': '#ffffff'
     }
   },
   plugins: [],
