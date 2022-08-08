@@ -10,7 +10,7 @@ import {
   selectedGroupAtom,
 } from "../server/atoms";
 import { CreateGroupModal } from "../components/modals/create-group-modal";
-import { BsCheckLg } from "react-icons/Bs";
+import { BsCheckLg } from "react-icons/bs";
 import { AddUserModal } from "../components/modals/add-people";
 import { User, Location } from "@prisma/client";
 import { useEffect } from "react";
