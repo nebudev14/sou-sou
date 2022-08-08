@@ -20,6 +20,7 @@ export const MarkerModal: React.FC<{
   });
 
   const addLocation = async () => {
+    setIsOpen(false);
     await mutateGroup.mutateAsync({
       address: markerData?.name as string,
       lat: Number(markerData?.lat),
