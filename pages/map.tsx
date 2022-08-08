@@ -35,7 +35,7 @@ const Map: NextPage = () => {
             </div>
             <div>
               <h1 className="mb-4 text-golden-yellow text-2xl p-2.5 border-b-2 border-cream">PEOPLE</h1>
-              {groupData?.at(0)?.users.map((user, i) => (
+              {groupData?.map((user, i) => (
                 <h1 className="text-p-2 text-4xl text-cream border-b-2 border-cream hover:bg-baby-pinnk hover:text-sage-blue" 
                 key={i}>{user.name}</h1>
               ))}
