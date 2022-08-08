@@ -12,7 +12,7 @@ import {
 import { CreateGroupModal } from "../components/modals/create-group-modal";
 import { BsCheckLg } from "react-icons/bs";
 import { AddUserModal } from "../components/modals/add-people";
-import { User, Location } from "@prisma/client";
+
 import { useEffect } from "react";
 
 const Map: NextPage = () => {
@@ -83,7 +83,7 @@ const Map: NextPage = () => {
                   +
                 </button>
               </div>
-              {selectedGroup?.users?.map((user: User, i: any) => (
+              {selectedGroup?.users?.map((user: any, i: any) => (
                 <div
                   key={i}
                   className="flex items-center justify-center py-4 text-2xl duration-200 border-b-2 text-p-2 text-cream border-cream hover:cursor-pointer hover:text-sage-blue hover:bg-baby-pink"
@@ -98,7 +98,7 @@ const Map: NextPage = () => {
           <div className="px-6">
             <h1 className="mt-8 mb-6 text-2xl text-golden-yellow">PLACES</h1>
             <div className="flex flex-wrap items-center justify-start">
-              {selectedGroup?.locations.map((location: Location, i: any) => (
+              {selectedGroup?.locations.map((location: any, i: any) => (
                 <div className="px-2 py-4 mb-2 mr-4 rounded-lg bg-light-coral" key={i}>
                   {location.address}
                 </div>
