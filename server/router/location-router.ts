@@ -11,9 +11,8 @@ export const geocoder = NodeGeocoder({
 export const locationRouter = createRouter()
   .mutation("create", {
     input: z.object({
-      address: z.string(),
-      name: z.string(),
       groupId: z.string(),
+      address: z.string(),
       lat: z.number(),
       lng: z.number(),
     }),
@@ -29,7 +28,6 @@ export const locationRouter = createRouter()
             data: {
               groupId: input.groupId,
               address: input.address,
-              name: input.name,
               lat: input.lat,
               lng: input.lng,
             },
